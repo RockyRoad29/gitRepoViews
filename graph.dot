@@ -1,0 +1,160 @@
+digraph  {
+	node [color=blue,
+		fillcolor="#ddddff",
+		label="\N",
+		shape=box,
+		style=filled
+	];
+	C_bed0531	 [label="Merge remote-tracking branch 'remotes/origin/contacts' into s2m\l",
+		tooltip=bed053145a6f18a3ead215ab579ccd6d0b0f1a82];
+	s2m	 [color=red,
+		fillcolor="#ffffaa",
+		shape=ellipse];
+	s2m -> C_bed0531;
+	C_d7673f5	 [label="Contact email relationship and tests\l",
+		tooltip=d7673f5a6f879a28cb6cebfed7045dddfc5462f0];
+	C_d7673f5 -> C_bed0531;
+	contacts	 [color=red,
+		fillcolor="#ffaa88",
+		shape=ellipse];
+	contacts -> C_d7673f5;
+	C_7d70b07	 [label="completed  blueprint integration documentation\l",
+		tooltip="7d70b07e20eb6fb9e8815d29ba98c782f5d887ca"];
+	C_7d70b07 -> C_d7673f5;
+	C_dd4c1f3	 [label="* removed integer id constraint from CRUDMixin\l* added show_schema manager comm\
+and\l",
+		tooltip=dd4c1f3e385c96486a69ee35f12aef15f6a184b1];
+	C_dd4c1f3 -> C_7d70b07;
+	C_f479690	 [label="Merged with contacts branch\l",
+		tooltip=f4796907df1b15d36122bed1eef2f70884de594a];
+	C_f479690 -> C_bed0531;
+	C_284148b	 [label="Improved api initialization, wrote model and tests\l",
+		tooltip="284148ba211ac44cd69dbba333d4224543f59696"];
+	C_284148b -> C_f479690;
+	C_284148b -> C_dd4c1f3;
+	C_6d10d19	 [label="Created Contacts Blueprint and test homepage ok\l",
+		tooltip="6d10d19f88dbf77f648daae67b8c60c249748ca9"];
+	C_6d10d19 -> C_284148b;
+	C_b412bb1	 [label="Creation du blueprint S2M. Tests OK\l",
+		tooltip=b412bb11f1358e79474a6f04f898a07b73ebabea];
+	C_b412bb1 -> C_f479690;
+	C_ab8799a	 [label="simple category view, with QuerySelectMultipleField\l",
+		tooltip=ab8799ae39e45395eab2bf78104cf0948d9b96d9];
+	C_ab8799a -> C_6d10d19;
+	C_ab8799a -> C_b412bb1;
+	sa_blog	 [color=red,
+		fillcolor="#ffaa88",
+		shape=ellipse];
+	sa_blog -> C_ab8799a;
+	C_e43e752	 [label="* Generic views: build_context method, url_mapping\l* DetailView post now update\
+s model instance, calling `CRUDMixin.update`\l* Action url passed to form templa\
+tes.\l* Defined jinja2 macro for forms.\l* tests OK\l",
+		tooltip=e43e7525d208224a384f7b4902b17ae94df1a037];
+	C_e43e752 -> C_ab8799a;
+	C_203c068	 [label="Documentation and tests\l",
+		tooltip="203c068f5653fba65c7986496493f8fa9f40f0ae"];
+	C_203c068 -> C_e43e752;
+	C_2c6e800	 [label="Improved Form generator\l",
+		tooltip="2c6e8001f445639a753222862d53c8c23fdf0d96"];
+	C_2c6e800 -> C_203c068;
+	C_093dadf	 [label="Generating forms for all models in a blueprint\l",
+		tooltip="093dadf9a1a0877ece8511cd41fe5f72d9164bef"];
+	C_093dadf -> C_2c6e800;
+	C_14c2dae	 [label="Manager script: Form code generator\l",
+		tooltip="14c2dae67046af483a58cd071c3a3fe8b045c858"];
+	C_14c2dae -> C_093dadf;
+	C_a594249	 [label="Views with related entities\l",
+		tooltip=a594249b82145aab22e3571858883185057d2d77];
+	C_a594249 -> C_14c2dae;
+	C_f3a13ef	 [label="Generic fixes\l",
+		tooltip=f3a13eff24287587c846a5520498820cbb5d6b5f];
+	C_f3a13ef -> C_a594249;
+	C_e06e612	 [label="inherit models from CRUDMixin\l",
+		tooltip=e06e61270fc199f6f419571b4a6d67e825e2e53d];
+	C_e06e612 -> C_f3a13ef;
+	C_96dbc35	 [label="Flask-SQLAlchemy quickstart\l",
+		tooltip="96dbc358675784fc3e10269a1ab55ad664b2c697"];
+	C_96dbc35 -> C_e06e612;
+	C_d0dea2e	 [label="Introduced generic class views. Tests ok\l",
+		tooltip=d0dea2e5437274beaa6518742a33f735fffb713b];
+	C_d0dea2e -> C_96dbc35;
+	flaskr	 [color=red,
+		fillcolor="#ffaa88",
+		shape=ellipse];
+	flaskr -> C_d0dea2e;
+	C_ce94fa5	 [label="List routes and sitemap\lLogging configuration\l",
+		tooltip=ce94fa5ee61b89ad7c68492abb27726c2f4d4b15];
+	C_ce94fa5 -> C_d0dea2e;
+	C_e98a459	 [label="Added asset management command, with a bit of doc\l",
+		tooltip=e98a4595352426e7e7c1fb00ca5641010bc62112];
+	C_e98a459 -> C_ce94fa5;
+	C_d2a1e30	 [label="FIXED Migrate extension and documented first migration.\l",
+		tooltip=d2a1e3068126884713aab00ac55c6a68166315b6];
+	C_d2a1e30 -> C_e98a459;
+	C_9dc4b68	 [label="redefined databases urls to disk and generated first migration\l",
+		tooltip="9dc4b6866abbed060437c2d9fd84633c07e51df2"];
+	C_9dc4b68 -> C_d2a1e30;
+	C_be90d76	 [label="initilized db migrations system\l",
+		tooltip=be90d76ee2a910508c10727cd1d05afa1e8a3884];
+	C_be90d76 -> C_9dc4b68;
+	C_04790d9	 [label="Fixed Flask-Migrate init_app interface\l",
+		tooltip="04790d90fe739763c8f3df0d53b6432b0efa331a"];
+	C_04790d9 -> C_be90d76;
+	C_ee08eeb	 [label="setup Flask-Migrate (Alembic)\l",
+		tooltip=ee08eebfcc2e41216ebbcf321a03f32071fb0014];
+	C_ee08eeb -> C_04790d9;
+	C_b69068c	 [label="refactored to \"plugable\" MethodView\l",
+		tooltip=b69068cfccf86e43dfa20e85cb6f2fd6c2dce5df];
+	C_b69068c -> C_ee08eeb;
+	C_51ebf36	 [label="Flaskr documentation and splitting files\l",
+		tooltip="51ebf3677f552374826cc89fbaa008ec5ed31049"];
+	C_51ebf36 -> C_b69068c;
+	C_cd7aa37	 [label="Flaskr documentation and splitting files\l",
+		tooltip=cd7aa3745bac982ac70897787bb4673f2ce2ce60];
+	C_cd7aa37 -> C_51ebf36;
+	C_e77501f	 [label="Testing flaskr blueprint\l",
+		tooltip=e77501f4d68f76949cff91bea3664292fc17f4d4];
+	C_e77501f -> C_cd7aa37;
+	master	 [color=red,
+		fillcolor="#ffaa88",
+		shape=ellipse];
+	master -> C_e77501f;
+	C_83b3b67	 [label="Improved testing. Authentication tests\l",
+		tooltip="83b3b674d7f232a3fd34e7f5c5e6d4e63bcaf0eb"];
+	C_83b3b67 -> C_e77501f;
+	C_d9325c4	 [label="Integrated a blueprint version of the official tutorial example flaskr\l",
+		tooltip=d9325c4fb370f0b04ea6aa0723b9b42e7c68f34e];
+	C_d9325c4 -> C_83b3b67;
+	C_3bb6a06	 [label="more documentation\l",
+		tooltip="3bb6a066cd276c8ad699ebed269f800dbb518f1c"];
+	C_3bb6a06 -> C_d9325c4;
+	C_1fb5670	 [label="Integration details for extensions login and sqlalchemy\l",
+		tooltip="1fb56700f88af8fd3825b15e0d6bfdd208dc4ec9"];
+	C_1fb5670 -> C_3bb6a06;
+	C_863b486	 [label="short descriptions in extensions headings\l",
+		tooltip="863b48622e97e709ebcce4dfdea0ca33d4e80f51"];
+	C_863b486 -> C_1fb5670;
+	C_3197417	 [label="documented blueprints, including links to relevant Flask documentation\l",
+		tooltip="3197417741c16197f9239523a253e0cb204eaab8"];
+	C_3197417 -> C_863b486;
+	C_4b1664a	 [label="Improving documentation\l",
+		tooltip="4b1664ac1cffa30acb2f17b5394a7a330866d5cd"];
+	C_4b1664a -> C_3197417;
+	C_aceac7b	 [label="Using sphinx-apidoc to generate autodoc modules\l",
+		tooltip=aceac7b13e56abdc5e6cbc60a8069a732433098b];
+	C_aceac7b -> C_4b1664a;
+	C_62f8142	 [label="Sphinx quickstart\l",
+		tooltip="62f8142eb81a727a3441505b41aadea984dcb615"];
+	C_62f8142 -> C_aceac7b;
+	C_658e1b8	 [label="upgraded to up-to-date dependencies\l",
+		tooltip="658e1b84817b61e5913ffe188d7ccc5d3ff66d1e"];
+	C_658e1b8 -> C_62f8142;
+	"req-upgrade"	 [color=red,
+		fillcolor="#ffaa88",
+		shape=ellipse];
+	"req-upgrade" -> C_658e1b8;
+	C_c339479	 [label="Fixed dependencies. Added some doc files\l",
+		tooltip=c3394790e4f82f55b816df863997807b183d43c6];
+	C_c339479 -> C_658e1b8;
+	C_25b8d1a -> C_c339479;
+}
