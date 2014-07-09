@@ -8,42 +8,11 @@ A great python script.
 
 __author__ = 'rockyroad'
 
-from git import Repo
 import time
-#import networkx as nx #I don't need this complexity
+
+from git import Repo
+
 import pygraphviz as pgv # much lighter
-
-def tuto():
-    """
-    >>> repo = Repo("/tmp/s2m-flask2")
-    >>> assert repo.bare == False
-    >>> repo.heads
-    [<git.Head "refs/heads/s2m">, <git.Head "refs/heads/sa_blog">]
-    >>> repo.heads.s2m
-    <git.Head "refs/heads/s2m">
-    >>> repo.heads.master
-    Traceback (most recent call last):
-    AttributeError: 'IterableList' object has no attribute 'master'
-    >>> repo.tags
-    [<git.TagReference "refs/tags/rr-fork">]
-    >>> repo.tags[0].tag
-    >>> repo.tags[0].commit
-    <git.Commit "25b8d1ac2376daed2e3cef8253ef1f48bbd4718d">
-    >>> head = repo.head            # the head points to the active branch/ref
-    >>> head
-    <git.HEAD "HEAD">
-    >>> master = head.reference     # retrieve the reference the head points to
-    >>> master.commit               # from here you use it as any other reference
-    <git.Commit "bed053145a6f18a3ead215ab579ccd6d0b0f1a82">
-    >>> repo.commit('HEAD~10')
-    <git.Commit "f3a13eff24287587c846a5520498820cbb5d6b5f">
-    >>> origin = repo.remotes.origin
-    >>> origin.refs
-    [<git.RemoteReference "refs/remotes/origin/HEAD">, <git.RemoteReference "refs/remotes/origin/apidoc">, <git.RemoteReference "refs/remotes/origin/contacts">, <git.RemoteReference "refs/remotes/origin/flaskr">, <git.RemoteReference "refs/remotes/origin/gh-pages">, <git.RemoteReference "refs/remotes/origin/master">, <git.RemoteReference "refs/remotes/origin/req-upgrade">, <git.RemoteReference "refs/remotes/origin/sa_blog">]
-
-    """
-    pass
-
 
 def iso_date(seconds_since_epoch):
     return time.strftime("%F %T %Z", time.localtime(seconds_since_epoch))
@@ -106,7 +75,7 @@ class RepoView(object):
                     name = name.split('/')[-1]
                     attr.update(fillcolor='#ffaa88')
                 G.add_node(name, **attr)
-                G.add_edge(name, id)
+                G.add_edge(name, id, arrowhead="none", color="red")
             # We need to have the nodes defined before edges, or attributes may be lost
             edges[id] = [ 'C_' + p.hexsha[:7] for p in commit.parents]
 
@@ -128,23 +97,33 @@ class RepoView(object):
 
 
 
-def run():
+def run(args):
     """
     Does great things.
     """
-    #v = RepoView("/tmp/s2m-flask2")
-    v = RepoView("/usr/local/www/s2m-flask")
-    G = v.graph(scope='rr-fork..')
-    #nx.draw_graphviz(G)
-    #write_dot(G, 'graph.dot')
-    #A = nx.to_agraph(G)
-    #A.write('Agraph.dot')
-    #nx.draw_networkx(G) #,'graph.png')
-    G.write('graph.dot')
-    G.layout(prog='dot')
-    #G.layout(prog='neato')
-    G.draw('graph.svg')
-    #G.draw('graph.ps', prog='circo'
+    #v = RepoView("/usr/local/www/s2m-flask")
+    v = RepoView(args.repository)
+    G = v.graph(scope=args.scope)
+    G.write(args.name + '.dot')
+    G.layout(prog=args.layout)
+    G.draw(args.name + '.' + args.type)
 
 if __name__ == '__main__':
-    run()
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("repository", help="Path of your project's git repository")
+    parser.add_argument("-s", "--scope", default="HEAD~10..",
+                        help="The revision range to examine. Default: HEAD~10..")
+    parser.add_argument("-n", "--name", default="/tmp/graph",
+                        help="output file name, without extension. Default: /tmp/graph")
+    parser.add_argument("-t", "--type", default="svg",
+                        help="image file type (many choices, see graphviz documentation. Default: svg",
+    )
+    parser.add_argument("-l", "--layout", default="dot",
+                        #choices=['dot', 'neato', 'circo', 'twppi', 'fdp', 'nop'],
+                        help="graphviz layout program. default: dot",
+                        )
+
+    args = parser.parse_args()
+    #print args.echo
+    run(args)
