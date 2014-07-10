@@ -1,0 +1,9 @@
+#! /bin/sh
+
+# Script must be run in its own virtual environment
+
+#PROJ_HOME=/home/mich/Devlp/git/gitRepoViews
+PROJ_HOME=$(dirname $(readlink -f $0))
+. $PROJ_HOME/venv/bin/activate
+python $PROJ_HOME/main.py $*
+deactivate
