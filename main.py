@@ -47,7 +47,31 @@ class RepoView(object):
         """
         self.repo = Repo(path)
 
-    def graph(self, scope='HEAD~10..'):
+    def G_add_commit(self, G, commit):
+        #the id must start with a letter
+        id = 'C_' + commit.hexsha[:7]
+        if id in G.nodes():
+            #print id, "is already a node, skipping"
+            return id
+        # the label or tooltip linebreaks must be escaped
+        msg = commit.message.strip().replace("\n", '\l') + '\l' # left-justified line breaks
+        print id, msg
+        #
+        G.add_node(id, label=msg, tooltip=commit.hexsha)
+        for name in commit_names(commit):
+            self.G_add_name(G, id, name)
+        return id
+
+    def G_add_name(self, G, id, name):
+        attr = self.name_attr
+        # show remote branches label with different color
+        if '/' in name:
+            name = name.split('/')[-1]
+            attr.update(fillcolor='#ffaa88')
+        G.add_node(name, **attr)
+        G.add_edge(name, id, arrowhead="none", color="red")
+
+    def graph(self, scope=None):
         """
         >>> rv = RepoView("/tmp/s2m-flask2")
         >>> rv.graph('rr-fork..')
@@ -58,30 +82,22 @@ class RepoView(object):
         #G = nx.DiGraph()
         G = pgv.AGraph(strict=False, directed=True)
         G.node_attr.update(shape= 'box', color='blue', style="filled", fillcolor='#ddddff')
-        name_attr = dict(shape='ellipse', color='red', fillcolor='#ffffaa')
+        self.name_attr = dict(shape='ellipse', color='red', fillcolor='#ffffaa')
         edges = {}
         for commit in self.repo.iter_commits(rev=scope):
-            #the id must start with a letter
-            id = 'C_' + commit.hexsha[:7]
-            # the label or tooltip linebreaks must be escaped
-            msg = commit.message.strip().replace("\n",'\l') + '\l' # left-justified line breaks
-            print id, msg
-            #
-            G.add_node(id, label=msg, tooltip=commit.hexsha)
-            for name in commit_names(commit):
-                attr = name_attr
-                # show remote branches label with different color
-                if '/' in name:
-                    name = name.split('/')[-1]
-                    attr.update(fillcolor='#ffaa88')
-                G.add_node(name, **attr)
-                G.add_edge(name, id, arrowhead="none", color="red")
+            id = self.G_add_commit(G, commit)
             # We need to have the nodes defined before edges, or attributes may be lost
-            edges[id] = [ 'C_' + p.hexsha[:7] for p in commit.parents]
+            edges[id] = []
+            for p in commit.parents:
+                p_id = self.G_add_commit(G, p)
+                edges[id].append(p_id)
 
         # Now define the edges
         for id, grp in edges.iteritems():
+            assert id
             for edge in grp:
+                assert edge
+                print edge, "->", id
                 G.add_edge(edge, id)
         return G
 
@@ -112,7 +128,8 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("repository", help="Path of your project's git repository")
-    parser.add_argument("-s", "--scope", default="HEAD~10..",
+    parser.add_argument("-s", "--scope",
+                        #, default="HEAD~10.."
                         help="The revision range to examine. Default: HEAD~10..")
     parser.add_argument("-n", "--name", default="/tmp/graph",
                         help="output file name, without extension. Default: /tmp/graph")
@@ -125,5 +142,6 @@ if __name__ == '__main__':
                         )
 
     args = parser.parse_args()
-    #print args.echo
+    print "Examining scope %s from repository %s" % (args.scope, args.repository)
     run(args)
+    print "Wrote %s and %s.%s" %( args.name, args.name, args.type)
